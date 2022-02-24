@@ -1,20 +1,48 @@
-// 2021-mbp-07-Containers.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
+#include <set>
+#include <iterator>
 #include <iostream>
+#include <cstring>
+using namespace std;
+
+set<int>::iterator it;
+
+bool contains(set<int> setToCheck, string valueToCheck)
+{
+    for (it = setToCheck.begin(); it != setToCheck.end(); ++it)
+    {
+        if (*it == valueToCheck)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+void unionWith(set<int>, setA, set<int> setB)
+{
+    set<int> setTemp;
+
+    for (it = setA.begin(); it != setA.end(); ++it)
+    {
+        setTemp.insert(*it);
+    }
+    for (it = setB.begin(); it != setB.end(); ++it)
+    {
+        if (!contains(setTemp, *it))
+        {
+            setTemp.insert(*it);
+        }
+        
+    }
+    for (it = setTemp.begin(); it != setTemp.end(); ++it)
+    {
+        cout << *it << " / ";
+    }
+}
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    set<int> setA = { 1,2,3,4,5};
+    set<int>setB = { 3,4,6,7,1};
+    unionWith(setA, setB);
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
